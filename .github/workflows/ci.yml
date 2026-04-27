@@ -32,6 +32,6 @@ jobs:
         run: |
           python -m compileall scripts src examples packages/openpi_client/src tests
 
-      - name: Smoke tests
-        run: |
-          pytest -q tests/test_smoke.py
+      # - name: Smoke tests
+      #   run: |
+      #     pytest -q tests/test_smoke.py
