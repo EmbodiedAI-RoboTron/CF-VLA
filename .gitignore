@@ -1,0 +1,33 @@
+# Data and artifacts
+assets/
+data/
+checkpoints/
+outputs/
+results/
+logs/
+wandb/
+swanlog/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build / env
+build/
+dist/
+*.egg-info/
+.env
+.venv/
+venv/
+
+# IDE
+.cursor/
+.vscode/
+
+# OS files
+.DS_Store

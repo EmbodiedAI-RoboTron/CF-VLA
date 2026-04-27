@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "CF_VLA"
+message: "If you use CF_VLA in your research, please cite this software."
+type: software
+authors:
+  - family-names: "CF_VLA Contributors"
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/<your-org>/CF-VLA"
+keywords:
+  - robotics
+  - vision-language-action
+  - imitation-learning

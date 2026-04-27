@@ -1,0 +1,38 @@
+name: cf_vla
+
+channels:
+  - defaults
+
+dependencies:
+  - python=3.11.13
+  - pip
+  - wheel
+
+  - ffmpeg
+  - ca-certificates
+  - openssl
+  - libstdcxx-ng
+  - libgcc-ng
+  - libgomp
+  - zlib
+  - bzip2
+  - xz
+  - readline
+  - sqlite
+  - tk
+  - ncurses
+  - libffi
+
+  - pip:
+      - --index-url https://download.pytorch.org/whl/cu121
+      - torch==2.5.1
+      - torchvision==0.20.1
+      - torchaudio==2.5.1
+      - --extra-index-url https://pypi.org/simple
+      - "numpy<2.0"
+
+      - deepspeed
+      - tqdm-loggable
+      - numpydantic
+      - dm-tree
+      - tree

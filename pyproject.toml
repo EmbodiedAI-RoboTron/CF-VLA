@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cf-vla"
+version = "0.1.0"
+description = "CF-VLA two-stage policy training and serving"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "numpy>=1.26",
+  "torch>=2.3",
+  "safetensors>=0.4",
+  "transformers>=4.53.2",
+  "tyro>=0.8",
+  "omegaconf>=2.3",
+  "PyYAML>=6.0",
+  "etils>=1.8",
+  "flax>=0.10",
+  "jax>=0.5",
+  "jaxlib>=0.5",
+  "optax>=0.2",
+  "orbax-checkpoint>=0.11",
+  "einops>=0.8",
+  "imageio>=2.35",
+  "tqdm>=4.66",
+  "swanlab>=0.6",
+  "websockets>=11.0",
+]
+
+[project.optional-dependencies]
+bench-libero = ["libero>=0.1.0", "opencv-python>=4.9", "imageio-ffmpeg>=0.5"]
+bench-calvin = ["hydra-core>=1.3", "moviepy>=1.0.3", "termcolor>=2.4"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["openpi*"]

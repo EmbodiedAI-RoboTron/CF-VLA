@@ -1,0 +1,66 @@
+overwrite: true
+wandb_enabled: True
+pytorch_weight_path: checkpoints/pytorch_pi05_base/
+
+# Use registered model config
+model:
+  type: pi0_2stg_pytorch  # resolved via registry
+  pi05: True
+  action_horizon: 10
+  discrete_state_input: False
+  
+  model_kwargs:
+    use_1stg: True
+    1stg_loss_type: mse
+    times_list_train: [0.1]
+    times_start_test: 0.1
+    action_loss_weight: 1.0
+    kl_loss_weight: 1   # yf0.1
+    noise_var: 0.012345679  
+    loss_logvar_weight: 0.01
+    #default values
+    1stg_as_noise: False  # mipI_0.9
+    1stg_output_mode: mode
+
+    1stg_rand_noise: False
+    only_1stg: False
+    use_0_noise: False #use zero initialization in stage two
+    discrete_time_steps: 0 #stage two step count; 0 disables discrete_time_steps branch
+
+    output_actions: False #directly predicts actions
+    
+# Data configuration
+data:
+  type: lerobot_data
+  repo_id: calvin/task_D_D
+
+
+  base_config:  # required; otherwise prompt missing error occurs
+    type: data_config
+    prompt_from_task: true
+    use_quantile_norm: True  # whether to use quantile normalization (Q1 and Q99)
+  extra_delta_transform: False  # whether to use delta transform
+  repack_transforms:
+    observation/image: image
+    observation/wrist_image: wrist_image
+    observation/state: state
+    actions: actions
+    prompt: prompt
+
+# # Training parameters
+batch_size: 16
+num_train_steps: 60_000  # keep consistent with lr_schedule.decay_steps
+ema_decay: 0.999
+
+
+
+lr_schedule:
+  type: cosine_decay_schedule
+  warmup_steps: 10_000
+  peak_lr: 5.0e-5
+  decay_steps: 1_000_000
+  decay_lr: 5.0e-5
+
+optimizer:
+  type: adamw
+  clip_gradient_norm: 1.0
