@@ -1,6 +1,8 @@
-# CF_VLA
+# CF-VLA
 
-CF_VLA is a two-stage VLA (Vision-Language-Action) training and inference project.
+CF-VLA introduces a plug-and-play action expert that replaces the action generation component in flow-based VLA backbones, enabling seamless integration while improving both inference speed and action generation performance without modifying the underlying architecture.
+
+📄 Paper: https://arxiv.org/abs/2604.24622
 
 ## Core Information
 
@@ -8,49 +10,6 @@ CF_VLA is a two-stage VLA (Vision-Language-Action) training and inference projec
 - Compatible configuration name: `pi0_2stg_pytorch`
 - Training entry point: `scripts/train_pytorch.py`
 - One-click launch script: `scripts/run_train_cf_vla.sh`
-
-## Environment Setup
-
-> Use the standalone environment file `environment.yml` to create the `cf_vla` conda environment for GPU reproduction.
-
-```bash
-# 1. Create the environment
-conda env create -f environment.yml
-
-# 2. Activate the environment
-conda activate cf_vla
-
-# 3. Install the project package
-pip install -e .
-
-# 4. Install the openpi client
-pip install -e packages/openpi_client
-```
-
-## Optional Benchmark Dependencies
-
-```bash
-pip install -e ".[bench-libero]"
-pip install -e ".[bench-calvin]"
-```
-
-## Training Example
-
-```bash
-bash scripts/run_train_cf_vla.sh \
-  configs/pi05_2stg_pytorch_delta_actions/Cf_vla_libero.yaml
-```
-
-## Inference and Evaluation Example
-
-```bash
-# Server side
-python scripts/serve_policy.py --env LIBERO
-
-# Client side
-python examples/libero/main.py
-python examples/calvin/main.py
-```
 
 ## Core Implementation Appendix
 
@@ -569,6 +528,71 @@ In short, the full implementation can be read as a $\pi_{0.5}$-style prefix/suff
 1. a Gaussian posterior head,
 2. a coarse endpoint stage,
 3. a single-step fine refinement stage initialized from the coarse output.
+
+
+## Environment Setup
+
+> Use the standalone environment file `environment.yml` to create the `cf_vla` conda environment for GPU reproduction.
+
+```bash
+# 1. Create the environment
+conda env create -f environment.yml
+
+# 2. Activate the environment
+conda activate cf_vla
+
+# 3. Install the project package
+pip install -e .
+
+# 4. Install the openpi client
+pip install -e packages/openpi_client
+```
+
+## Optional Benchmark Dependencies
+
+```bash
+pip install -e ".[bench-libero]"
+pip install -e ".[bench-calvin]"
+```
+
+## Training Example
+
+```bash
+bash scripts/run_train_cf_vla.sh \
+  configs/pi05_2stg_pytorch_delta_actions/Cf_vla_libero.yaml
+```
+
+## Inference and Evaluation Example
+
+Start the policy server, then run the evaluation client:
+
+```bash
+
+# Server
+
+python scripts/serve_policy.py --env LIBERO
+
+# Client
+
+python examples/libero/main.py
+```
+
+
+## 📄 Citation
+
+If you find this work useful, please cite:
+
+Du et al., CF-VLA: Efficient Coarse-to-Fine Action Generation for Vision-Language-Action Policies, arXiv preprint arXiv:2604.24622, 2026.
+📄 Paper: https://arxiv.org/abs/2604.24622
+
+```bibtex
+@article{du2026cfvla,
+  title={CF-VLA: Efficient Coarse-to-Fine Action Generation for Vision-Language-Action Policies},
+  author={Du, Fan and Yan, Feng and Wu, Jianxiong and Xu, Xinrun and Zhang, Weiye and Wang, Weinong and Guo, Yu and Qian, Bin and He, Zhihai and Wang, Fei and Yang, Heng},
+  journal={arXiv preprint arXiv:2604.24622},
+  year={2026}
+}
+
 
 ## License
 
